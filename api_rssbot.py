@@ -32,12 +32,9 @@ class RssRobot:
                     entry.link not in post_url_list
                     and (
                         datetime.now()
-                        - datetime.strptime(
-                            entry["published"],
-                            rss.date_type,
-                        )
+                        - datetime.strptime(entry["published"], rss.date_type)
                     ).days
-                    < 7
+                    < rss.before
                 ):
                     msg = msg + f"{entry.title}\n{entry.link}\n\n"
                     rss_history_list.append(History(url=entry.link))
